@@ -13,4 +13,5 @@ R = 0.0125
 
 GAMMA = 6 * PI * ETA * A * 2/3 * 15 / (np.log(2 * 15) - 0.5)
 
-D = KB * T / GAMMA
+# D = KB * T / GAMMA
+D = KB * T / (6 * PI * A * ETA)
