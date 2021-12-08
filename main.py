@@ -1,5 +1,6 @@
 import os
 import pickle
+import platform
 
 import numpy as np
 from tqdm import tqdm
@@ -68,8 +69,13 @@ def main():
     n_merged_mat = np.zeros((n_t + 1, n_total), dtype=np.int64)
     n_merged_mat[0] = np.ones(n_total, dtype=np.int64)
     
+    if platform.system() == "Windows":
+        cmd_clear = "cls"
+    else:
+        cmd_clear = "clear"
+    
     for t in range(n_t):
-        os.system("clear")
+        os.system(cmd_clear)
         print(f"********** Iteration {t+1}/{n_t} **********")
         
         x = x_mat[t].copy()
