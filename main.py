@@ -14,11 +14,11 @@ def merge(x, n_merged, min_dist, min_pos, n_total):
     def _can_merge(x, n_merged, min_dist):
         valid_idx = np.argwhere(n_merged > 0)
 
-        for i in range(len(valid_idx) - 1):
+        for i in reversed(range(1, len(valid_idx))):
             idx_i = valid_idx[i]
-            idx_i_plus = valid_idx[i+1]
+            idx_i_minus = valid_idx[i-1]
             
-            if x[idx_i] + min_dist >= x[idx_i_plus]:
+            if x[idx_i_minus] + min_dist >= x[idx_i]:
                 return True
         
         return False
@@ -27,17 +27,17 @@ def merge(x, n_merged, min_dist, min_pos, n_total):
     def _merge(x, n_merged, min_dist):
         valid_idx = np.argwhere(n_merged > 0)
 
-        for i in range(len(valid_idx) - 1):
+        for i in reversed(range(1, len(valid_idx))):
             idx_i = valid_idx[i]
-            idx_i_plus = valid_idx[i+1]
+            idx_i_minus = valid_idx[i-1]
 
-            if x[idx_i] + min_dist >= x[idx_i_plus]:
-                x_new_i = np.average([x[idx_i], x[idx_i_plus]], 
-                                        weights=[n_merged[idx_i], n_merged[idx_i_plus]])
+            if x[idx_i_minus] + min_dist >= x[idx_i]:
+                x_new_i_minus = np.average([x[idx_i], x[idx_i_minus]], 
+                                        weights=[n_merged[idx_i], n_merged[idx_i_minus]])
                 
-                x[idx_i] = x_new_i
-                x[idx_i_plus] = x_new_i
-                n_merged[idx_i_plus] += n_merged[idx_i]
+                x[idx_i] = x_new_i_minus
+                x[idx_i_minus] = x_new_i_minus
+                n_merged[idx_i_minus] += n_merged[idx_i]
                 n_merged[idx_i] = 0
             
                 assert np.sum(n_merged) == n_total, f"i: {i}, n_merged: {np.sum(n_merged)}"
