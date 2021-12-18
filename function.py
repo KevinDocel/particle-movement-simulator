@@ -25,6 +25,10 @@ def B(x):
 
 def Mu(x):
     m = 350000 * V(6.2 * 10**(-9)) * B(x) / (C.T * C.KB)
+    
+    # idx = np.argwhere(B(x) == 0)
+    # assert not np.any(B(x) == 0), f"idx: {idx}, x: {x[idx]}, B(x): {B(x)[idx]}"
+    
     y = 92 * 350000 * V(6.25 * 10**(-9)) * (coth(m) - 1/m)
 
     return y

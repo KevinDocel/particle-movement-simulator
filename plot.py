@@ -35,10 +35,10 @@ def plot(X, N, delta_t, x_max, y_max, filepath="dxw.png"):
 
 def main():
     print("Reading data ...")
-    data = load(filepath="dxw_delta_t_0.001.pkl")
+    data = load(filepath="dxw_delta_t_0.1.pkl")
 
     print("Plotting ...")
-    plot(data["X"], data["N"], data["delta_t"], data["max_t"], data["x_0_end"], filepath="dxw_delta_t_0.001.png")
+    plot(data["X"], data["N"], data["delta_t"], data["max_t"], data["x_0_end"], filepath="dxw_delta_t_0.1.png")
 
 if __name__ == "__main__":
     main()
