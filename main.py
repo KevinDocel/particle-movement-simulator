@@ -40,11 +40,11 @@ def merge(x, n_merged, min_dist, min_pos, n_total):
                 n_merged[idx_i_minus] += n_merged[idx_i]
                 n_merged[idx_i] = 0
             
-                assert np.sum(n_merged) == n_total, f"i: {i}, n_merged: {np.sum(n_merged)}"
+                # assert np.sum(n_merged) == n_total, f"i: {i}, n_merged: {np.sum(n_merged)}"
 
         return x, n_merged
 
-    assert np.sum(n_merged) == n_total, f"n_merged: {np.sum(n_merged)}"
+    # assert np.sum(n_merged) == n_total, f"n_merged: {np.sum(n_merged)}"
 
     # 0. merge <= min_pos into 1 particle
     lt_zero_idx = np.argwhere(x <= min_pos)
@@ -54,12 +54,12 @@ def merge(x, n_merged, min_dist, min_pos, n_total):
         n_merged[lt_zero_idx] = 0
         n_merged[lt_zero_idx[0]] = num_lt_zero
 
-    assert np.sum(n_merged) == n_total, f"n_merged: {np.sum(n_merged)}"
+    # assert np.sum(n_merged) == n_total, f"n_merged: {np.sum(n_merged)}"
 
     # 1. merge others
     while _can_merge(x, n_merged, min_dist):
         x, n_merged = _merge(x, n_merged, min_dist)
-        assert np.sum(n_merged) == n_total, f"n_merged: {np.sum(n_merged)}"
+        # assert np.sum(n_merged) == n_total, f"n_merged: {np.sum(n_merged)}"
 
     return x, n_merged
 
@@ -100,8 +100,8 @@ def main():
 
         x = x[valid_idx].flatten()
         n_merged = n_merged[valid_idx].flatten()
-        assert np.sum(n_merged) == n_total, f"n_merged: {np.sum(n_merged)}"
-        assert np.all(x >= min_pos)
+        # assert np.sum(n_merged) == n_total, f"n_merged: {np.sum(n_merged)}"
+        # assert np.all(x >= min_pos)
 
         # 1. new position at next time t
         print("Computing new positions ...")
@@ -128,11 +128,11 @@ def main():
 
             # assert x[i] + a + b < 0, f"\n i: {i}\n x[i]: {x[i]}\n a: {a}\n b: {b}\n"
 
-            x_next[i] = x[i] + a + b
+            x_next[i] = x[i] - a - b
             # x[i] = x[i] + 1/C.GAMMA * np.sum(f_dd) * delta_t + np.sum(d_f_m) * delta_t / (C.KB * C.T)
             # x[i] = x[i] + 1/F.GAMMA(n_merged[i]) * np.sum(f_dd) * delta_t + np.sum(d_f_m) * delta_t / (C.KB * C.T)
 
-            assert not np.isnan(np.sum(x[i]))
+            # assert not np.isnan(np.sum(x[i]))
         
         x = x_next
 
@@ -159,7 +159,7 @@ def main():
 
 
     print("Saving ...")
-    with open(f"dxw_delta_t_{delta_t}.pkl", "wb") as f:
+    with open(f"dxw_delta_t_{delta_t}_1220.pkl", "wb") as f:
         pickle.dump({
             "X": x_mat,
             "N": n_merged_mat,
