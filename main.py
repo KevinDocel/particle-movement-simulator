@@ -1,4 +1,5 @@
 import os
+import time
 import pickle
 import platform
 
@@ -128,7 +129,7 @@ def main():
 
             # assert x[i] + a + b < 0, f"\n i: {i}\n x[i]: {x[i]}\n a: {a}\n b: {b}\n"
 
-            x_next[i] = x[i] - a - b
+            x_next[i] = x[i] + a + b
             # x[i] = x[i] + 1/C.GAMMA * np.sum(f_dd) * delta_t + np.sum(d_f_m) * delta_t / (C.KB * C.T)
             # x[i] = x[i] + 1/F.GAMMA(n_merged[i]) * np.sum(f_dd) * delta_t + np.sum(d_f_m) * delta_t / (C.KB * C.T)
 
@@ -171,4 +172,7 @@ def main():
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     main()
+    end_time = time.time()
+    print(f"total time: {end_time - start_time}")

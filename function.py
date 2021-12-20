@@ -72,7 +72,7 @@ def F_DD_vec(X, N, x_i, n_i):
     mu_0 = 4 * C.PI * 10**(-7)
     mu_i = Mu(x_i) * n_i
     mu = Mu(X) * N
-    y = 3 * mu_0 / (2 * C.PI) * mu_i * mu / ((x_i - X)**3 * np.abs(x_i - X))
+    y = 3 * mu_0 / (2 * C.PI) * mu_i * mu / ((X - x_i)**3 * np.abs(x_i - X))
     
     return y
 
