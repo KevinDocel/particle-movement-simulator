@@ -12,7 +12,7 @@ def load(filepath):
     return data
 
 
-def plot(X, N, delta_t, x_max, y_max, filepath="dxw.png"):
+def plot(X, N, delta_t, x_max, y_max, filepath, dpi):
     plt.figure()
     plt.xlim([0, x_max])
     plt.ylim([0, y_max])
@@ -31,17 +31,18 @@ def plot(X, N, delta_t, x_max, y_max, filepath="dxw.png"):
         t_i = np.asarray(t_i) * delta_t
         plt.plot(t_i, x_i, 'k-')
     
-    plt.savefig(filepath)
+    plt.savefig(filepath, dpi=dpi)
 
 def main():
     filename = "dxw_delta_t_0.001_1220"
-    save_format = "png"
+    save_format = "svg"
+    dpi = 600
 
     print("Reading data ...")
     data = load(f"{filename}.pkl")
 
     print("Plotting ...")
-    plot(data["X"], data["N"], data["delta_t"], data["max_t"], data["x_0_end"], filepath=f"{filename}.{save_format}")
+    plot(data["X"], data["N"], data["delta_t"], data["max_t"], data["x_0_end"], f"{filename}.{save_format}", dpi)
 
 if __name__ == "__main__":
     main()
